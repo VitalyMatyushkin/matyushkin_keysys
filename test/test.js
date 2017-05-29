@@ -12,20 +12,19 @@ describe('To do test', function() {
     test.it('example', function theTestFunction() {
         driver.get('http://localhost:8080/');
         driver.findElement(By.className('form-control')).sendKeys('test1', KEY.ENTER);
-        driver.wait(function () {
-            return driver.findElement(By.linkText('test1')).then(
+        driver.wait(driver.findElement(By.linkText('test1')).then(
                 console.log('Element was added!')
-            );
-        }, 3000);
+            )
+        , 3000);
 
 
         driver.findElement(By.linkText('test1')).click();
-        driver.findElement(By.linkText('test1')).catch(
+        driver.wait(driver.findElement(By.linkText('test1')).catch(
             function (err) {
                 if (err.name === 'NoSuchElementError'){
                     console.log('Element was deleted!');
             }
-        });
+        }), 3000);
     });
 
     test.after(function() {
